@@ -68,13 +68,9 @@ namespace Task1
             public static object GetMinValue(Node r)
             {
                 if (r.left != null)
-                {
                     return GetMinValue(r.left);
-                }
                 else
-                {
                     return r.inf;
-                }
             }
 
             //поиск ключевого узла в дереве
@@ -180,24 +176,40 @@ namespace Task1
         public object GetMinValue() => Node.GetMinValue(tree);
     }
 
+    /*
+    
+10
+-5
+2
+-7
+-34
+43
+56
+34
+2
+3
+7
+
+10 -5 -9 23 -45 3 45 39 1 0 -60
+
+string[] items = sr.ReadToEnd().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        int n = int.Parse(items[0]);
+        for (int i = 0; i < n; i++)
+            tree.Add(items[i]);
+
+    */
+
     public class ConsoleDemonstration
     {
         static void Main()
         {
             BinaryTree tree = new();
+            using StreamReader sr = new(@"D:\GitHub\SSU\Pract21\task1\bin\Debug\net6.0\input.txt");
 
-            //for (int i = 0; i < 10; i++)
-            //    tree.Add(int.Parse(Console.ReadLine()));
+            while (!sr.EndOfStream)
+                tree.Add(int.Parse(sr.ReadLine()));
 
-            using (StreamReader sr = new("input.txt"))
-            {
-                string[] items = sr.ReadToEnd().ToString().Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
-                int n = int.Parse(items[0]);
-                for (int i = 1; i < n; i++)
-                    if (items[i] != null)
-                        tree.Add(items[i]);
-            }
-
+            sr.Close();
             tree.InOrderWrite();
             Console.WriteLine($"\nMin elem = {tree.GetMinValue()}");
         }
