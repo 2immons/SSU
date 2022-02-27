@@ -1,11 +1,9 @@
-﻿using System;
-
-namespace Task1
+﻿namespace Pr27_Task2
 {
     // В файле input.txt хранится последовательность целых чисел.
-    // По входной последовательности построить дерево бинарного поиска и найти для него:
-    // 8. наименьшее из значений листьев;
+    // По входной последовательности построить дерево бинарного поиска и:
 
+    // 8. распечатать узлы k-го уровня дерева;
 
     public class BinaryTree
     {
@@ -14,14 +12,14 @@ namespace Task1
         {
             public object inf; //информационное поле
             public Node left; //ссылка на левое поддерево
-            public Node rigth; //ссылка на правое поддерево
-                               
+            public Node right; //ссылка на правое поддерево
+
             //конструктор вложенного класса, создает узел дерева
             public Node(object nodeInf)
             {
                 inf = nodeInf;
                 left = null;
-                rigth = null;
+                right = null;
             }
 
             //добавляет узел в дерево так, чтобы дерево оставалось деревом бинарного поиска
@@ -34,7 +32,7 @@ namespace Task1
                     if (((IComparable)(r.inf)).CompareTo(nodeInf) > 0)
                         Add(ref r.left, nodeInf);
                     else
-                        Add(ref r.rigth, nodeInf);
+                        Add(ref r.right, nodeInf);
                 }
             }
             public static void PreOrderWrite(Node r) //прямой обход дерева
@@ -43,7 +41,7 @@ namespace Task1
                 {
                     Console.Write($"{r.inf} ");
                     PreOrderWrite(r.left);
-                    PreOrderWrite(r.rigth);
+                    PreOrderWrite(r.right);
                 }
             }
             public static void InOrderWrite(Node r) //симметричный обход дерева (по возрастанию)
@@ -52,7 +50,7 @@ namespace Task1
                 {
                     InOrderWrite(r.left);
                     Console.Write($"{r.inf} ");
-                    InOrderWrite(r.rigth);
+                    InOrderWrite(r.right);
                 }
             }
             public static void PostOrderWrite(Node r) //обратный обход дерева
@@ -60,9 +58,28 @@ namespace Task1
                 if (r != null)
                 {
                     PostOrderWrite(r.left);
-                    PostOrderWrite(r.rigth);
+                    PostOrderWrite(r.right);
                     Console.Write($"{r.inf} ");
                 }
+            }
+            public static void PrintTreeLevel(Node r, int level)
+            {
+                if (r != null)
+                {
+                    if (Height(r) == level)
+                        Console.Write($"{r.inf} ");
+                    PreOrderWrite(r.left);
+                    PreOrderWrite(r.right);
+                }
+
+            }
+
+            public static int Height(Node r)
+            {
+                if (r == null) 
+                    return 0;
+                //находим высоту правой и левой ветки, и из них берем максимальную
+                return 1 + Math.Max(Height(r.left), Height(r.right));
             }
 
             public static object GetMinValue(Node r)
@@ -73,25 +90,6 @@ namespace Task1
                     return r.inf;
             }
 
-            public static void PrintTreeLevel(Node r, int level)
-            {
-                if (r != null)
-                {
-                    if (Height(r) == level)
-                        Console.Write($"{r.inf} ");
-                    PrintTreeLevel(r.left, level);
-                    PrintTreeLevel(r.rigth, level);
-                }
-
-            }
-
-            public static int Height(Node r)
-            {
-                if (r == null)
-                    return 0;
-                return 1 + Math.Max(Height(r.left), Height(r.rigth));
-            }
-
             //поиск ключевого узла в дереве
             public static void Search(Node r, object key, out Node item)
             {
@@ -99,13 +97,13 @@ namespace Task1
                     item = null;
                 else
                     if (((IComparable)(r.inf)).CompareTo(key) == 0)
-                        item = r;
+                    item = r;
                 else
                 {
                     if (((IComparable)(r.inf)).CompareTo(key) > 0)
                         Search(r.left, key, out item);
                     else
-                        Search(r.rigth, key, out item);
+                        Search(r.right, key, out item);
                 }
             }
 
@@ -113,8 +111,8 @@ namespace Task1
             //оставалось деревом бинарного поиска
             private static void Del(Node t, ref Node tr)
             {
-                if (tr.rigth != null)
-                    Del(t, ref tr.rigth);
+                if (tr.right != null)
+                    Del(t, ref tr.right);
                 else
                 {
                     t.inf = tr.inf;
@@ -135,17 +133,17 @@ namespace Task1
                     {
                         if (((IComparable)(t.inf)).CompareTo(key) < 0)
                         {
-                            Delete(ref t.rigth, key);
+                            Delete(ref t.right, key);
                         }
                         else
                         {
                             if (t.left == null)
                             {
-                                t = t.rigth;
+                                t = t.right;
                             }
                             else
                             {
-                                if (t.rigth == null)
+                                if (t.right == null)
                                 {
                                     t = t.left;
                                 }
@@ -158,7 +156,7 @@ namespace Task1
                     }
                 }
             }
-        } 
+        }
         //конец вложенного класса
 
         Node tree; //ссылка на корень дерева
@@ -196,43 +194,36 @@ namespace Task1
         public void PrintTreeLevel(int level) => Node.PrintTreeLevel(tree, level);
     }
 
-    /*
-    
-10
--5
-2
--7
--34
-43
-56
-34
-2
-3
-7
-
-10 -5 -9 23 -45 3 45 39 1 0 -60
-
-string[] items = sr.ReadToEnd().Split(' ', StringSplitOptions.RemoveEmptyEntries);
-        int n = int.Parse(items[0]);
-        for (int i = 0; i < n; i++)
-            tree.Add(items[i]);
-
-    */
-
     public class ConsoleDemonstration
     {
         static void Main()
         {
             BinaryTree tree = new();
             using StreamReader sr = new(@"D:\GitHub\SSU\Pract21\task1\bin\Debug\net6.0\input.txt");
+            
+            /*
+            
+            9
+            5
+            1
+            10
+            -2
+            3
+            6
+            8
+            -8
+            -1
+
+            */
 
             while (!sr.EndOfStream)
                 tree.Add(int.Parse(sr.ReadLine()));
 
             sr.Close();
             tree.InOrderWrite();
+            int level = 1;
             Console.WriteLine("\nAnswer:");
-            tree.PrintTreeLevel(2);
+            tree.PrintTreeLevel(level);
         }
     }
 }
