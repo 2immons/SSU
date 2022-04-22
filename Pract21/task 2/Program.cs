@@ -1,23 +1,32 @@
-﻿namespace Pr27_Task2
+﻿namespace Pr27_Task2and3
 {
+
     // В файле input.txt хранится последовательность целых чисел.
     // По входной последовательности построить дерево бинарного поиска и:
 
+    // task 2
     // 8. распечатать узлы k-го уровня дерева;
 
-    public class BinaryTree
+    // task 3
+    // 3. проверить, можно ли удалить какой-то один узел так,
+    // чтобы дерево осталось деревом бинарного поиска и стало сбалансированным (указать удаляемый узел);
+
+    public class BinaryTree	//класс, реализующий АТД «дерево бинарного поиска со счетчиком вершин в дереве»
     {
-        //вложенный класс, отвечающий за узлы и операции допустимы для дерева бинарного поиска
-        public class Node
+        //вложенный класс, отвечающий за узлы и операции допустимы для дерева бинарного
+        //поиска
+        private class Node
         {
-            public object inf; //информационное поле
-            public Node left; //ссылка на левое поддерево
-            public Node right; //ссылка на правое поддерево
+            public object inf;	//информационное поле
+            public int counter;
+            public Node left;	//ссылка на левое поддерево
+            public Node right;	//ссылка на правое поддерево
 
             //конструктор вложенного класса, создает узел дерева
             public Node(object nodeInf)
             {
                 inf = nodeInf;
+                counter = 1;
                 left = null;
                 right = null;
             }
@@ -26,204 +35,329 @@
             public static void Add(ref Node r, object nodeInf)
             {
                 if (r == null)
+                {
                     r = new Node(nodeInf);
+                }
                 else
                 {
+                    r.counter++;
                     if (((IComparable)(r.inf)).CompareTo(nodeInf) > 0)
+                    {
                         Add(ref r.left, nodeInf);
+                    }
                     else
+                    {
                         Add(ref r.right, nodeInf);
+                    }
                 }
             }
-            public static void PreOrderWrite(Node r) //прямой обход дерева
+
+            public static void Preorder(Node r)	//прямой обход дерева
             {
                 if (r != null)
                 {
-                    Console.Write($"{r.inf} ");
-                    PreOrderWrite(r.left);
-                    PreOrderWrite(r.right);
+                    Console.Write("({0}, {1}) ", r.inf, r.counter);
+                    Preorder(r.left);
+                    Preorder(r.right);
                 }
             }
-            public static void InOrderWrite(Node r) //симметричный обход дерева (по возрастанию)
+
+            public static void Inorder(Node r)	//симметричный обход дерева
             {
                 if (r != null)
                 {
-                    InOrderWrite(r.left);
-                    Console.Write($"{r.inf} ");
-                    InOrderWrite(r.right);
+                    Inorder(r.left);
+                    Console.Write("({0}, {1}) ", r.inf, r.counter);
+                    Inorder(r.right);
                 }
             }
-            public static void PostOrderWrite(Node r) //обратный обход дерева
+
+            public static void Postorder(Node r)	//обратный обход дерева
             {
                 if (r != null)
                 {
-                    PostOrderWrite(r.left);
-                    PostOrderWrite(r.right);
-                    Console.Write($"{r.inf} ");
+                    Postorder(r.left);
+                    Postorder(r.right);
+                    Console.Write("({0}, {1}) ", r.inf, r.counter);
                 }
             }
-            public static void PrintTreeLevel(Node r, int level)
+
+
+            public static void Part(ref Node t, int k)
             {
-                if (r != null)
+                int x = (t.left == null) ? 0 : t.left.counter;
+                if (x > k)
                 {
-                    if (Height(r) == level)
-                        Console.Write($"{r.inf} ");
-                    PreOrderWrite(r.left);
-                    PreOrderWrite(r.right);
+                    Part(ref t.left, k);
+                    RotationRigth(ref t);
+                    //Console.WriteLine("Ротация вправо");
                 }
+                if (x < k)
+                {
+                    Part(ref t.right, k - x - 1);
+                    //Console.WriteLine("Ротация влево");
+                    RotationLeft(ref t);
+                }
+                //if (x == k) Console.WriteLine("Выбран элемент ({0}, {1})", t.inf, t.counter); 
+            }
+
+
+
+            public static void Balancer(ref Node t)
+            {
+                if (t == null || t.counter == 1) return;
+                Part(ref t, t.counter / 2);
+                //Preorder(t);
+                //Console.WriteLine();
+                Balancer(ref t.left);
+                Balancer(ref t.right);
 
             }
 
-            public static int Height(Node r)
+            //неявная балансировка дерева бинарного поиска
+            public static void InsertRandom(ref Node r, object nodeInf, Random rnd)
             {
-                if (r == null) 
-                    return 0;
-                //находим высоту правой и левой ветки, и из них берем максимальную
-                return 1 + Math.Max(Height(r.left), Height(r.right));
-            }
-
-            public static object GetMinValue(Node r)
-            {
-                if (r.left != null)
-                    return GetMinValue(r.left);
+                if (r == null)
+                {
+                    r = new Node(nodeInf);
+                }
                 else
-                    return r.inf;
+                {
+                    if (rnd.Next() < int.MaxValue / (r.counter + 1))
+                    {
+                        InsertToRoot(ref r, nodeInf);
+                    }
+                    else
+                    {
+                        r.counter++;
+                        if (((IComparable)(r.inf)).CompareTo(nodeInf) > 0)
+                        {
+                            InsertRandom(ref r.left, nodeInf, rnd);
+                        }
+                        else
+                        {
+                            InsertRandom(ref r.right, nodeInf, rnd);
+                        }
+                    }
+                }
             }
 
             //поиск ключевого узла в дереве
             public static void Search(Node r, object key, out Node item)
             {
                 if (r == null)
+                {
                     item = null;
+                }
                 else
+                {
                     if (((IComparable)(r.inf)).CompareTo(key) == 0)
-                    item = r;
-                else
-                {
-                    if (((IComparable)(r.inf)).CompareTo(key) > 0)
-                        Search(r.left, key, out item);
-                    else
-                        Search(r.right, key, out item);
-                }
-            }
-
-            //методы Del и Delete позволяют удалить узел в дереве так, чтобы дерево при этом
-            //оставалось деревом бинарного поиска
-            private static void Del(Node t, ref Node tr)
-            {
-                if (tr.right != null)
-                    Del(t, ref tr.right);
-                else
-                {
-                    t.inf = tr.inf;
-                    tr = tr.left;
-                }
-            }
-            public static void Delete(ref Node t, object key)
-            {
-                if (t == null)
-                    throw new Exception("Данное значение в дереве отсутствует");
-                else
-                {
-                    if (((IComparable)(t.inf)).CompareTo(key) > 0)
                     {
-                        Delete(ref t.left, key);
+                        item = r;
                     }
                     else
                     {
-                        if (((IComparable)(t.inf)).CompareTo(key) < 0)
+                        if (((IComparable)(r.inf)).CompareTo(key) > 0)
                         {
-                            Delete(ref t.right, key);
+                            Search(r.left, key, out item);
                         }
                         else
                         {
-                            if (t.left == null)
-                            {
-                                t = t.right;
-                            }
-                            else
-                            {
-                                if (t.right == null)
-                                {
-                                    t = t.left;
-                                }
-                                else
-                                {
-                                    Del(t, ref t.left);
-                                }
-                            }
+                            Search(r.right, key, out item);
                         }
                     }
                 }
             }
-        }
-        //конец вложенного класса
 
-        Node tree; //ссылка на корень дерева
-                   //свойство позволяет получить доступ к значению информационного поля корня дерева
+            //самоорганизующийся поиск ключевого узла в дереве
+            public static void SearchToRoot(ref Node r, object key)
+            {
+                if (r != null)
+                {
+                    if (((IComparable)(r.inf)).CompareTo(key) == 0)
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        if (((IComparable)(r.inf)).CompareTo(key) > 0)
+                        {
+                            SearchToRoot(ref r.left, key);
+                            RotationRigth(ref r);
+
+                        }
+                        else
+                        {
+                            SearchToRoot(ref r.right, key);
+                            RotationLeft(ref r);
+                        }
+                    }
+                }
+            }
+
+            public static void Count(ref Node r)
+            {
+                r.counter = 1;
+                if (r.left != null) r.counter += r.left.counter;
+                if (r.right != null) r.counter += r.right.counter;
+            }
+
+            public static void RotationRigth(ref Node t)
+            {
+                Node x = t.left;
+                t.left = x.right;
+                x.right = t;
+
+                Count(ref t);
+                Count(ref x);
+
+                t = x;
+
+
+            }
+
+            public static void RotationLeft(ref Node t)
+            {
+                Node x = t.right;
+                t.right = x.left;
+                x.left = t;
+
+                Count(ref t);
+                Count(ref x);
+
+                t = x;
+            }
+
+            public static void InsertToRoot(ref Node t, object item)
+            {
+                if (t == null)
+                {
+                    t = new Node(item);
+                }
+                else
+                {
+                    t.counter++;
+                    if (((IComparable)(t.inf)).CompareTo(item) > 0)
+                    {
+                        InsertToRoot(ref t.left, item);
+                        RotationRigth(ref t);
+                    }
+                    else
+                    {
+                        InsertToRoot(ref t.right, item);
+                        RotationLeft(ref t);
+                    }
+                }
+            }
+
+            // task 2:
+            public static void PrintLevel(Node t, int n, int level)
+            {
+                if (level == n)
+                {
+                    Console.Write($"{t.inf}({n}) ");
+                    return;
+                }
+                else
+                {
+                    n++;
+                    if (t.left != null)
+                        PrintLevel(t.left, n, level);
+                    if (t.right != null)
+                        PrintLevel(t.right, n, level);
+                }
+            }
+
+            // task 3:
+
+
+        }
+        Node tree;		//ссылка на корень дерева
+
+        //свойство позволяет получить доступ к значению информационного поля корня дерева 
         public object Inf
         {
             set { tree.inf = value; }
             get { return tree.inf; }
         }
-        public BinaryTree() //открытый конструктор
-        {
-            tree = null;
-        }
-        private BinaryTree(Node r) //закрытый конструктор
-        {
-            tree = r;
-        }
-        public void Add(object nodeInf) => Node.Add(ref tree, nodeInf); //добавление узла в дерево
-        public void Delete(object key) => Node.Delete(ref tree, key); //удаление ключевого узла в дереве
 
-        //организация различных способов обхода дерева
-        public void PreOrderWrite() => Node.PreOrderWrite(tree);
-        public void InOrderWrite() => Node.InOrderWrite(tree);
-        public void PostOrderWrite() => Node.PostOrderWrite(tree);
+        public int Counter { get { return tree.counter; } }
 
-        //поиск ключевого узла в дереве
+
+        public BinaryTree() => tree = null;
+
+        private BinaryTree(Node r) => tree = r;
+
+        public void Add(object nodeInf) => Node.Add(ref tree, nodeInf);
+        public void Preorder() => Node.Preorder(tree);
+        public void Inorder() => Node.Inorder(tree);
+        public void Postorder() => Node.Postorder(tree);
         public BinaryTree Search(object key)
         {
-            Node.Search(tree, key, out Node r);
-            return new BinaryTree(r);
+            Node r;
+            Node.Search(tree, key, out r);
+            BinaryTree t = new BinaryTree(r);
+            return t;
+        }
+        public void SearchToRoot(object key) => Node.SearchToRoot(ref tree, key);
+        public void InsertToRoot(object item) => Node.InsertToRoot(ref tree, item);
+        public void Balancer() => Node.Balancer(ref tree);
+        public void InsertRandom(object nodeInf)
+        {
+            Random rnd = new Random();
+            Node.InsertRandom(ref tree, nodeInf, rnd);
         }
 
-        // поиск минимального значения
-        public object GetMinValue() => Node.GetMinValue(tree);
-        public void PrintTreeLevel(int level) => Node.PrintTreeLevel(tree, level);
+        // task 2:
+        public void PrintLevel(int level) => Node.PrintLevel(tree, 1, level);
+
+        // task 3:
+
     }
+
 
     public class ConsoleDemonstration
     {
         static void Main()
         {
             BinaryTree tree = new();
-            using StreamReader sr = new(@"D:\GitHub\SSU\Pract21\task1\bin\Debug\net6.0\input.txt");
-            
+            using StreamReader sr = new(@"C:\Users\podop\Desktop\tree\input.txt");
+
             /*
-            
-            9
-            5
-            1
-            10
-            -2
-            3
-            6
-            8
-            -8
-            -1
+
+            32
+            15
+            20
+            -10
+            28
+            -5
+            15
+            23
+            55
+            65
+            70
+            72
+            29
+            68
 
             */
 
             while (!sr.EndOfStream)
                 tree.Add(int.Parse(sr.ReadLine()));
-
             sr.Close();
-            tree.InOrderWrite();
-            int level = 1;
-            Console.WriteLine("\nAnswer:");
-            tree.PrintTreeLevel(level);
+
+            int level = int.Parse(Console.ReadLine());
+
+            Console.WriteLine();
+
+            while (level > 0)
+            {
+                tree.PrintLevel(level);
+                Console.WriteLine();
+                level = int.Parse(Console.ReadLine());
+            }
+
+
         }
     }
 }
