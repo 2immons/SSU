@@ -1,4 +1,4 @@
-﻿namespace Pr27_Task2and3
+namespace Pr27_Task2and3
 {
 
     // В файле input.txt хранится последовательность целых чисел.
@@ -321,7 +321,7 @@
         static void Main()
         {
             BinaryTree tree = new();
-            using StreamReader sr = new(@"C:\Users\podop\Desktop\tree\input.txt");
+            using StreamReader sr = new(@"d:\input.txt");
 
             /*
 
