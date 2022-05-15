@@ -1,33 +1,41 @@
 ﻿using System;
+using System.Text.Json.Serialization;
 
 namespace Task1_Round.Entities
 {
     public class Round
     {
         public int Id { get; set; }
+        public Point Center { get; set; }
         public int Radius { get; set; }
-        public int CenterX { get; set; }
-        public int CenterY { get; set; }
-        public Round(int Radius, Point center)
+
+        [JsonConstructorAttribute]
+        public Round(int id, Point center, int radius)
         {
-            this.Radius = Radius > 0 ? Radius : 5;
-            this.CenterX = center.X;
-            this.CenterY = center.Y;
+            Id = id;
+            Center = center;
+            Radius = radius;
         }
 
-        public double GetArea() => Math.PI * Radius * Radius;
-        public double GetLength() => Math.PI * Math.PI * 2;
+        public Round(Point center, int radius)
+        {
+            Center = center;
+            Radius = radius;
+        }
+
+        public double GetArea() => Math.PI * Radius * 2;
+        public double GetSquare() => Math.PI * Radius * Radius;
 
         public void Update(Round round)
         {
-            this.CenterX = round.CenterX;
-            this.CenterY = round.CenterY;
-            this.Radius = round.Radius > 0 ? this.Radius : round.Radius;
+            this.Center = round.Center ?? this.Center;
+            this.Radius = round.Radius; 
         }
 
         public override String ToString()
         {
-            return $"{Id}) Center ({CenterX},{CenterY}), radius = {Radius}";
+            return $"{Id}) Center ({Center.X},{Center.Y}), radius = {Radius}, area = {this.GetArea()}, length = {this.GetArea()}";
         }
+
     }
 }

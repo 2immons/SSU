@@ -1,11 +1,19 @@
 ﻿using System;
 using Task1_Round.BLL;
+using Task1_Round.Entities;
 
 namespace Task1_Round.PLL
 {
+
     public class ConsoleInterface
     {
-        public static void Start()
+        private readonly IRoundLogic roundLogic;
+
+        public ConsoleInterface(IRoundLogic roundLogic)
+        {
+            this.roundLogic = roundLogic;
+        }
+        public void Start()
         {
             while (true)
             {
@@ -23,25 +31,27 @@ namespace Task1_Round.PLL
                         Console.Write("\tRadius: "); int radius = int.Parse(Console.ReadLine());
                         Console.Write("\tCenter x: "); int x = int.Parse(Console.ReadLine());
                         Console.Write("\tCenter y: "); int y = int.Parse(Console.ReadLine());
-                        Console.WriteLine(RoundLogicImpl.Create(radius, x, y));
+                        Point center = new Point(x, y);
+                        Console.WriteLine(roundLogic.Create(center, radius));
                         break;
                     case 2:
-                        Console.WriteLine(String.Join("\n", RoundLogicImpl.FindAll()));
+                        Console.WriteLine(String.Join("\n", roundLogic.FindAll()));
                         break;
                     case 3:
                         Console.Write("\tID: "); int id = int.Parse(Console.ReadLine());
-                        Console.WriteLine(RoundLogicImpl.Find(id));
+                        Console.WriteLine(roundLogic.Find(id));
                         break;
                     case 4:
                         Console.Write("\tID: "); id = int.Parse(Console.ReadLine());
                         Console.Write("\tRadius: "); radius = int.Parse(Console.ReadLine());
                         Console.Write("\tCenter x: "); x = int.Parse(Console.ReadLine());
                         Console.Write("\tCenter y: "); y = int.Parse(Console.ReadLine());
-                        Console.WriteLine(RoundLogicImpl.Update(id, radius, x, y));
+                        center = new Point(x, y);
+                        Console.WriteLine(roundLogic.Update(id, center, radius));
                         break;
                     case 5:
                         Console.Write("\tID: "); id = int.Parse(Console.ReadLine());
-                        Console.WriteLine(RoundLogicImpl.Delete(id));
+                        Console.WriteLine(roundLogic.Delete(id));
                         break;
                     default:
                         break;
