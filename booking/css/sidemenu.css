@@ -1,0 +1,166 @@
+.menu-button{
+    display: none;
+}
+
+.side-menu{
+    position: fixed;
+    display: flex;
+    top: 0;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 20%;
+    height: 100%;    /*box-shadow: 3px 0px 50px rgba(17, 17, 16, 0.829) */
+    background-color: rgba(17, 17, 16);
+}
+
+.logo{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 85px;
+    margin-top: 85px;
+}
+
+.logo-text{
+    color: white;
+    font-family: "Montserrat", sans-serif;
+    text-decoration: overline underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 20px;
+    font-size: 80px;
+    text-transform: uppercase;
+}
+
+.navbar{
+    display: flex;
+    flex-direction: column;
+    text-transform: uppercase;
+}
+
+.navbar-item{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.navlink{
+    color:#c3c3c3;
+    font-family: "Montserrat", sans-serif;
+    text-decoration: none;
+    font-size: 20px;
+    transition: 0.2s linear;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.navlink:hover{
+    color: white;
+}
+
+.user-login-form{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 50px;
+}
+
+.login-form-button{
+    background-color: transparent;
+    font-family: "Montserrat", sans-serif;
+    transition: 0.2s linear;
+    border: none;
+}
+
+.login-button{
+    color:#c3c3c3;
+    font-size: 20px;
+    text-transform: uppercase;
+}
+
+.login-button:hover{
+    color: white;
+}
+
+.create-account-button{
+    color:#838696;
+    font-size: 15px;
+    text-transform: uppercase;
+}
+
+.create-account-button:hover{
+    color: white;
+}
+
+.login-form, .register-form{
+    display: none;
+    margin-top: 10px;
+}
+
+.login-form-inputs, .register-form-inputs {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: none;
+}
+
+.register-button, .login-button2 {
+    background-color: transparent;
+    color: #c3c3c3;
+    border: none;
+    margin-top: 5px;
+    transition: 0.2s linear;
+}
+
+.register-button:hover, .login-button2:hover {
+    color: white;
+    
+}
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
+@media (max-width: 1208px) {
+    .side-menu{
+        display: flex;
+        position: fixed;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(17, 17, 16);
+        z-index: 200;
+        transition: all 0.5s ease;
+        transform: translate(-100%, 0px)
+    }
+
+    .side-menu._active{
+        transform: translate(0px, 0px);
+        width: 300px;
+    }
+
+    .menu-button{
+        position: fixed;
+        left: 3%;
+        top: 15px;
+        background-color: transparent;
+        height: auto;
+        width: 30px;
+        border: none;
+        z-index: 222;
+        display: flex;
+        flex-direction: column;
+        transition: 0.3s ease 0s;;
+    }
+
+    .menu-button-item{
+        background-color: #b6bee6;
+        height: 5px;
+        margin-bottom: 5px;
+        width: 30px;
+    }
+
+    .menu-button:hover{
+        scale: 1.2;
+    }
+
+}

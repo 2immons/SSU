@@ -1,0 +1,300 @@
+
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-weight: normal;
+}
+
+body {
+    /*background-image: url(https://images.wallpaperscraft.com/image/single/restaurant_cafe_appliances_tables_chairs_interior_design_39216_1920x1080.jpg);
+    background-attachment: fixed;*/
+    overflow-x: hidden;
+}
+
+body._inactive {
+    overflow-y: hidden;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+    min-height: 100%;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+
+body::-webkit-scrollbar {
+    width: 8px;
+}
+ 
+body::-webkit-scrollbar-track {
+    background-color:  rgba(17, 17, 16, 0.829);
+}
+ 
+body::-webkit-scrollbar-thumb {
+  background-color: white;
+  outline: 1px solid slategrey;
+}
+
+.content-section{
+    display: flex;
+    flex-direction: column;
+    margin-left: 20%;
+}
+
+.container{
+    height: 100vh;
+    min-height: 580px;
+    display: flex;
+    justify-content: center;
+}
+
+    .container__header{
+        /* background: rgb(218,197,168);
+        background: linear-gradient(170deg, rgba(218,197,168,1) 0%, rgba(240,220,192,1) 100%); */
+
+        background-image: url(https://images.wallpaperscraft.com/image/single/restaurant_cafe_appliances_tables_chairs_interior_design_39216_1920x1080.jpg);
+        background-attachment: fixed;
+    }
+
+    .container__about-us{
+        background: rgb(236,221,201);
+        background: linear-gradient(125deg, rgba(236,221,201,1) 0%, rgba(246,238,229,1) 40%, rgba(255,255,255,1) 100%);
+    }
+
+    .container__about-kitchen{
+        background: #f6eee5;
+    }
+
+    .footer{
+        height: 125px;
+        background-color: rgba(17, 17, 16, 0.829);
+    }
+
+.header-wrapper{
+    backdrop-filter: blur(3px) brightness(45%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.header-wrapper-text{
+    text-align: center;
+    font-family: "Montserrat", sans-serif;
+    font-size: 90px;
+    font-weight: 500;
+    text-shadow: 3px 3px 3px #000000;
+    /* color: #2c2c2c; */
+    color: white;
+    width: 70%;
+}
+
+
+.box{
+    margin-left: 10%;
+    margin-right: 10%;
+    display: flex;
+    flex-direction: column;
+}
+
+.box-header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 20vh;
+    min-height: 120px;
+}
+
+    .header-text{
+        text-align: center;
+        font-family: "Montserrat", sans-serif;
+        font-size: 80px;
+        letter-spacing: 5px;
+        text-decoration-thickness: 2px;
+        text-decoration: underline;
+        font-weight: 500;
+        color: #2c2c2c;
+    }
+
+.box-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 80vh;
+    min-height: 450px;
+}
+
+    .text-wrapper{
+        display: flex;
+        justify-content: center;
+    }
+
+    .info-image{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+.text{
+    font-family: "Montserrat", sans-serif;
+    max-width: 900px;
+    /* color: rgb(39, 38, 38); */
+    color: black;
+    font-size: 22px;
+    text-decoration: none;
+    text-align: center;
+    font-weight: 500;
+    line-height: 30px;
+}
+
+.container__photo-slider{
+    height: auto;
+    display: flex;
+    min-height: 775px;
+    height: 100vh;
+    background: rgb(25,25,25);
+    background: linear-gradient(110deg, rgba(25,25,25,1) 0%, rgba(61,51,47,1) 56%, rgba(80,74,64,1) 95%);
+}
+
+.box__photo-slider{
+    flex-direction: column;
+}
+
+.header-text__photo-slider{
+    color: white;
+}
+
+.slider-wrapper{
+    display: flex;
+    flex-direction: row;
+    height: 80%;
+    align-items: center;
+    justify-content: center;
+}
+
+.slider{
+    width: 900px;
+    height: 550px;
+    box-shadow: 0px 0px 20px black;
+    overflow: hidden;
+}
+
+.slider-line{
+    display: flex;
+    position: relative;
+    height: 550px;
+    width: 3600px;
+    left: 0;
+    transition: all ease 0.85s;
+}
+
+.slider-button{
+    height: 20%;
+    width: 10%;
+    border: none;
+    background-color: transparent;
+    transition: all ease 0.1s;
+}
+
+.slider-button:hover{
+    transform: scale(1.1);
+}
+
+@media(max-width: 1500px) {
+    .container__about-us{
+        background: #f6eee5;
+    }
+
+    .container__about-kitchen{
+        background: #f6eee5;
+    }
+
+    .about-us-content{
+        flex-direction: column;
+    }
+     
+    .image__about-us{
+        display: flex;
+        justify-content: center;
+    }
+
+    .footer{
+        margin-left: 0%;
+    }
+}
+
+@media (max-width: 1208px) {
+    .content-section{
+        margin-left: 0%;
+        margin-right: 0%;
+    }
+    .footer{
+        margin-left: 0%;
+    }
+}
+
+@media (max-width: 980px) {
+    .container__photo-slider{
+        display: none;
+    }
+}
+
+@media (max-width: 660px) {
+    .info-image, .container__photo-slider{
+        display: none;
+    }
+
+    .box{
+        justify-content: center;
+    }
+
+    .box-header{
+        height: 50%;
+    }
+
+    .box-content{
+        height: 50%;
+    }
+}
+
+.footer-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 3%;
+    margin-right: 3%;
+    margin-top: 0px;
+    margin-bottom: 20px;
+    height: 90%;
+}
+
+.contacts-text{
+    color: #ffffff;
+}
+
+.contactsf, .download{
+    display: flex;
+    flex-direction: column;
+}
+
+.apps {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.social{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    column-gap: 10%;
+    min-width: 110px;
+}
