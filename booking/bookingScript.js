@@ -1,14 +1,21 @@
-function showLoginForm() {
-   document.getElementById('login-form').style.display = "flex";
-   document.getElementById('login-form').style.flexDirection = "column";
-   document.getElementById('register-form').style.display = "none"
-}
+let loginBtn = $('.login-button');
+let regBtn = $('.create-account-button');
 
-function showRegisterForm() {
-   document.getElementById('register-form').style.display = "flex";
-   document.getElementById('register-form').style.flexDirection = "column";
-   document.getElementById('login-form').style.display = "none"
-}
+$(document).on("click", function(e){
+   if(loginBtn.is(e.target)){
+      document.getElementById('login-form').style.display = "flex";
+      document.getElementById('login-form').style.flexDirection = "column";
+      document.getElementById('register-form').style.display = "none"
+   }
+})
+
+$(document).on("click", function(e){
+   if(regBtn.is(e.target)){
+      document.getElementById('register-form').style.display = "flex";
+      document.getElementById('register-form').style.flexDirection = "column";
+      document.getElementById('login-form').style.display = "none"
+   }
+})
 
 // бургер:
 
@@ -42,23 +49,45 @@ $(document).on("click", function(e2){
 })
 
 // модал
-let closeBtn = $('.close-btn');
-let openBtn = $('.open-btn');
-let submitBtn = $('.submit-btn');
-let popupBody = $('.popup__body');
-let popup = $('.popup');
+let dcloseBtn = $('.close-btn__date-popup');
+let dopenBtn = $('.date-popup-open-btn');
+let dsubmitBtn = $('.submit-btn___date-popup');
+let dpopupBody = $('.popup-body__date-popup');
+let dpopup = $('.popup__date-popup');
 
 $(document).on("click", function(e){
-   if (closeBtn.is(e.target)) {
-      popup.removeClass('_active');
+   if (dcloseBtn.is(e.target)) {
+      dpopup.removeClass('_active');
    }
-   if (submitBtn.is(e.target) || (popupBody.is(e.target))) {
-      popup.removeClass('_active');
+   if (dsubmitBtn.is(e.target) || (dpopupBody.is(e.target))) {
+      dpopup.removeClass('_active');
    }
 })
 
 $(document).on("click", function(e){
-   if (openBtn.is(e.target)) {
-      popup.addClass('_active');
+   if (dopenBtn.is(e.target)) {
+      dpopup.addClass('_active');
+   }
+})
+
+// модал
+let tcloseBtn = $('.close-btn__time-popup');
+let tableBtn = $('.table');
+let tsubmitBtn = $('.submit-btn___time-popup');
+let tpopupBody = $('.popup-body__time-popup');
+let tpopup = $('.popup__time-popup');
+
+$(document).on("click", function(e){
+   if (tcloseBtn.is(e.target)) {
+      tpopup.removeClass('_active');
+   }
+   if (tsubmitBtn.is(e.target) || (tpopupBody.is(e.target))) {
+      tpopup.removeClass('_active');
+   }
+})
+
+$(document).on("click", function(e){
+   if (tableBtn.is(e.target)) {
+      tpopup.addClass('_active');
    }
 })
