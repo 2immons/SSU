@@ -31,22 +31,34 @@ let table = $('.table');
 let tableId = 0;
 
 $(document).on("click", function(e2){
-   if(!menuButton.is(e2.target)){
-      document.getElementById("error").classList.remove("error__occupied");
-   }
    if (table.is(e2.target)) {
       tableId = e2.target.id;
       let element = document.getElementById(tableId);
       if (element.classList.contains("table__free")) {
          element.classList.add("table__occupied");
          element.classList.remove("table__free");
-         document.getElementById("booking-form").classList.add("_active");
-         document.getElementById("booking-form-background").classList.add("_active");
-         document.getElementById("body").classList.add("_inactive");
-         // сделать чтобы нельзя было нажать куда-то еще
       }
-      else {
-         document.getElementById("error").classList.add("_active");
-      }
+   }
+})
+
+// модал
+let closeBtn = $('.close-btn');
+let openBtn = $('.open-btn');
+let submitBtn = $('.submit-btn');
+let popupBody = $('.popup__body');
+let popup = $('.popup');
+
+$(document).on("click", function(e){
+   if (closeBtn.is(e.target)) {
+      popup.removeClass('_active');
+   }
+   if (submitBtn.is(e.target) || (popupBody.is(e.target))) {
+      popup.removeClass('_active');
+   }
+})
+
+$(document).on("click", function(e){
+   if (openBtn.is(e.target)) {
+      popup.addClass('_active');
    }
 })

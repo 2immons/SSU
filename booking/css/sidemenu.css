@@ -102,6 +102,13 @@
     border: none;
 }
 
+.login-value, .password{
+    border-radius: 7px;
+    height: 27px;
+    background-color: white;
+    border: 1px solid black
+}
+
 .register-button, .login-button2 {
     background-color: transparent;
     color: #c3c3c3;
@@ -133,9 +140,13 @@ textarea:focus, input:focus{
         transform: translate(-100%, 0px)
     }
 
+    .logo-text{
+        font-size: 120px;
+    }
+
     .side-menu._active{
         transform: translate(0px, 0px);
-        width: 300px;
+        width: 45%;
     }
 
     .menu-button{

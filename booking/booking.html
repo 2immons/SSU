@@ -2,12 +2,12 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Главная</title>
+        <title>Бронирование</title>
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/sidemenu.css">
         <link rel="stylesheet" href="css/booking.css">
     </head>
-<body class="body" id="body">
+<body>
     
     <button class="menu-button">  
         <span class="menu-button-item"></span>
@@ -41,14 +41,14 @@
             </div>
             <div class="login-form" id="login-form">
                 <div class="login-form-inputs">
-                    <input type="tel" class="login-value" placeholder="Логин">
+                    <input type="tel" class="login-value" placeholder="Телефон">
                     <input type="password" class="password" placeholder="Пароль">
                 </div>
                 <button class="login-button2">Войти</button>
             </div>
             <div class="register-form" id="register-form">
                 <div class="register-form-inputs">
-                    <input type="tel" class="login-value" placeholder="Логин">
+                    <input type="tel" class="login-value" placeholder="Телефон">
                     <input type="text" class="password" placeholder="Пароль">
                     <input type="text" class="password" placeholder="Подтвердите пароль">
                 </div>
@@ -58,109 +58,63 @@
         
     </aside>
 
+    
+
     <div class="content-section">
         <div class="content">
-
-            <div class="container container__information">
-                <div class="box box__information">
-                    <div class="box-header">
-                        <p class="header-text header-text__information">Забронируйте столик</p>
-                    </div>
-                    <div class="box-content box-content__information">
-                        <div class="text-wrapper text-wrapper__informations">
-                            <p class="text">
-                                Nunc dictum ante ut neque porttitor, vitae congue urna euismod. Suspendisse vitae augue eget eros commodo maximus. Nunc vitae maximus ex. Donec pharetra velit sed lobortis posuere. 
-                            </p>
-                        </div>
-
-                        <div class="counters">
-                            <div class="free-places">
-                                <p class="text-small free-places-text">Свободных мест: <script>document.getElementsByClassName('table__free').length.toString()</script></p>
-                            </div>
-                            <div class="occupied-places">
-                                <p class="text-small occupied-place-text">Занятых мест: <script>let tableCount = 0; (tableCount - document.getElementsByClassName('table__free').length).toString()</script></p>
-                            </div>
-                        </div>
-                        
-                            
-                        <p id="error" class="error">Стол уже занят! Выберите другой!</p>
-                        <div class="booking-form-background" id="booking-form-background">
-                            <div id="booking-form" class="booking-form">
-                                <p class="text text__booking-form-info">Выберите подходящее время!</p>
-                            <div class="input-date-and-time">
-                                <div class="input-date">
-                                    <input class="input-date-value" type="date" min="2022-10-13" max="2023-06-30"/> 
-                                    <!-- подключить datetime для сегодня -->
-                                </div>
-                                <div class="choose-time">
-                                    <button id="choosen_time1" class="choosen_time choosen_time__1 choosen_time__occupied">10:00</button>
-                                    <button id="choosen_time2" class="choosen_time choosen_time__2 choosen_time__occupied">10:30</button>
-                                    <button id="choosen_time3" class="choosen_time choosen_time__3 choosen_time__free">11:00</button>
-                                    <button id="choosen_time4" class="choosen_time choosen_time__4 choosen_time__free">11:30</button>
-                                    <button id="choosen_time5" class="choosen_time choosen_time__5 choosen_time__free">12:00</button>
-                                    <button id="choosen_time6" class="choosen_time choosen_time__6 choosen_time__free">12:30</button>
-                                    <button id="choosen_time7" class="choosen_time choosen_time__7 choosen_time__free">13:00</button>
-                                    <button id="choosen_time8" class="choosen_time choosen_time__8 choosen_time__free">13:30</button>
-                                    <button id="choosen_time9" class="choosen_time choosen_time__9 choosen_time__free">14:00</button>
-                                    <button id="choosen_time10" class="choosen_time choosen_time__10 choosen_time__free">14:30</button>
-                                    <button id="choosen_time11" class="choosen_time choosen_time__11 choosen_time__free">15:00</button>
-                                    <button id="choosen_time12" class="choosen_time choosen_time__12 choosen_time__free">15:30</button>
-                                    <button id="choosen_time13" class="choosen_time choosen_time__13 choosen_time__free">16:00</button>
-                                    <button id="choosen_time14" class="choosen_time choosen_time__14 choosen_time__free">16:30</button>
-                                    <button id="choosen_time15" class="choosen_time choosen_time__15 choosen_time__free">17:00</button>
-                                    <button id="choosen_time16" class="choosen_time choosen_time__16 choosen_time__free">17:30</button>
-                                    <button id="choosen_time17" class="choosen_time choosen_time__17 choosen_time__free">18:00</button>
-                                    <button id="choosen_time18" class="choosen_time choosen_time__18 choosen_time__free">18:30</button>
-                                    <button id="choosen_time19" class="choosen_time choosen_time__19 choosen_time__free">19:00</button>
-                                    <button id="choosen_time20" class="choosen_time choosen_time__20 choosen_time__free">19:30</button>
-                                    <button id="choosen_time21" class="choosen_time choosen_time__21 choosen_time__free">20:00</button>
-                                    <button id="choosen_time22" class="choosen_time choosen_time__22 choosen_time__free">20:30</button>
-                                    <button id="choosen_time23" class="choosen_time choosen_time__23 choosen_time__free">21:00</button>
-                                    <button id="choosen_time24" class="choosen_time choosen_time__24 choosen_time__free">21:30</button>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-
-                        <div class="booking">
-                            <div class="main-hall">
-
-                               
-                                    <div class="tables-r1">
-                                        <button id="table1" class="table table1 table__free">1</button>
-                                        <button id="table2" class="table table1 table__occupied">2</button>
-                                        <button id="table3" class="table table1 table__free">3</button>
-                                        <button id="table4" class="table table1 table__free">4</button>
-                                        <button id="table5" class="table table1 table__free">5</button>
-                                        <button id="table6" class="table table1 table__free">6</button>
-                                    </div>
-                                
-                                
-                                <div class="wall"></div>
-
-                                
-                                    <div class="tables-r2">
-                                        <button id="table7" class="table table1 table__free">7</button>
-                                        <button id="table8" class="table table1 table__free">8</button>
-                                        <button id="table9" class="table table1 table__free">9</button>
-                                        <button id="table10" class="table table1 table__free">10</button>
-                                    </div>
-                                
-                                
-                            </div>
-                        </div>
-                        
-                         
-                        
-                    </div>
+            <div class="container container__header container__header__booking">
+                <div class="header-wrapper">
+                    <h1 class="header-wrapper-text">Забронируйте столик</h2>
                 </div>
             </div>
+
+            <div class="container container__booking">
+                <div class="box box__booking">
+
+                    <div class="box-content box-content__booking">
+                        <div class="date-selection-form">
+                            <div class="input-form-button-wrapper">
+                                <button data-id="popup" class="open-btn">Выбрать дату и время</button>
+                            </div>
+
+                            <!-- <div class="counters">
+                                <div class="text-wrapper text-wrapper__free-places">
+                                    <p class="text text__free-places">
+                                        Свободных мест: 3
+                                    </p>
+                                </div>
+                                <div class="text-wrapper text-wrapper__occupied-places">
+                                    <p class="text text__occupied-place">
+                                        Занятых мест: 3
+                                    </p>
+                                </div>
+                            </div> -->
+                        </div>
+                        
+                        <div class="booking-menu">
+                            <img class="booking-menu-backgroundimg" src="img/planrest.jpg" alt="">
+                            <svg class="booking-menu-svg" viewBox="0 0 1364 833">
+                                <path class="table table1 table__occupied" id="table1" d="m 137.3836,426.22174 -71.633907,72.14558 71.633907,71.88974 71.63391,-71.37807 z"></path>
+                                <path class="table table2 table__occupied" id="table2" d="m 340.54977,431.6161 -71.63391,72.14558 71.63391,71.88974 71.63391,-71.37807 z"></path>
+                                <path class="table table3 table__free" id="table3" d="m 559.88672,431.45997 -71.63391,72.14558 71.63391,71.88974 71.63391,-71.37807 z"></path>
+                                <path class="table table4 table__occupied" id="table4" d="m 775.89267,437.04319 -71.63391,72.14558 71.63391,71.88974 71.63391,-71.37807 z"></path>
+                                <path class="table table5 table__occupied" id="table5" d="m 971.99146,437.405 -71.63391,72.14558 71.63391,71.88974 71.63384,-71.37807 z"></path>
+    
+                                <path class="table table6 table__free" id="table6" d="m 99.134807,159.55639 v 162.44759 l 122.281773,0.36505 0.73222,-162.81264 z"></path>
+                                <path class="table table7 table__free" id="table7" d="m 299.83907,170.6422 v 81.35565 l 81.22773,-0.25583 0.12792,-80.71607 z"></path>
+                            </svg>
+                        </div>
+                    </div>
+
+                </div>
+            </div>    
+        </div>
         
 
         <div class="footer">
             <div class="footer-container">
                 <div class="contactsf">
-                    <p class="contacts-text">ул. Московская, д. 159</p>
+                    <p class="contacts-text">ул. Московская, 122/126</p>
                     <p class="contacts-text">+7(838)323-43-22</p>
                 </div>
                 <div class="download">
@@ -179,12 +133,28 @@
         </div>
     </div>
 
-
 </div>
 
-<script src="node_modules\jquery\dist\jquery.min.js"></script>
-<script src="bookingScript.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue@2.7.10"></script>
-<script src="vue.js"></script>
+ <div id="popup" class="popup">
+    <div class="popup__body">
+        <div class="popup__content">
+            <div class="popup__title">Выберите дату и время:</div>
+            <div class="input-form">
+                <input type="date" id="date" class="input-form-date-value" min="2022-11-17" max="2022-12-31">
+                <input type="time" id="time" class="input-form-time-value" min="09:00" max="21:00" required>
+            </div>
+            <div class="popup__сontent-buttons">
+                <button id="close-btn" class="popup__сontent-button close-btn">Закрыть</button>
+                <button class="popup__сontent-button submit-btn" type="submit">Подтвердить</button>
+            </div>
+        </div>
+    </div>
+ </div>   
+
+ <script src="node_modules\jquery\dist\jquery.min.js"></script>
+ <script src="bookingScript.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/vue@2.7.10"></script>
+ <script src="vue.js"></script>
+
 </body>
 </html>
