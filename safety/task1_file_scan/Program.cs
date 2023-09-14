@@ -7,22 +7,23 @@ class Program
 {
     static void Main()
     {
-        Console.Write("Введите начальную директорию для сканирования: ");
-        string startDirectory = Console.ReadLine();
+        Console.Write("Начальная директория для сканирования: ");
+        string directory = Console.ReadLine();
 
-        Console.Write("Введите путь к файлу-образцу для вычисления его сигнатуры: ");
+        Console.Write("Путь к файлу-образцу: ");
         string sampleFilePath = Console.ReadLine();
 
         string signature = GetSignature(sampleFilePath);
-        Console.WriteLine($"Полученная сигнатура файла: {signature}");
+        Console.WriteLine($"Вычисленная сигнатура файла: {signature}");
+        Console.WriteLine();
 
         if (signature != string.Empty)
         {
-            List<string> foundFiles = FindFilesWithSignature(startDirectory, signature);
+            List<string> foundFiles = FindFilesWithSignature(directory, signature);
 
             if (foundFiles.Count > 0)
             {
-                Console.WriteLine("Найденные файлы с заданной сигнатурой:");
+                Console.WriteLine($"Детектированные файлы ({foundFiles.Count} шт):");
                 foreach (string file in foundFiles)
                     Console.WriteLine(file);
             }
@@ -41,14 +42,15 @@ class Program
             using (FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             using (SHA256 sha256 = SHA256.Create())
             {
-                byte[] hashBytes = sha256.ComputeHash(fileStream);
-                return BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
+                byte[] hash = sha256.ComputeHash(fileStream);
+                string signature = BitConverter.ToString(hash); //.Replace("-", "").ToLower();
+                return signature;
             }
         }
-        catch (Exception e)
+        catch (Exception error)
         {
-            Console.WriteLine($"Ошибка при вычислении сигнатуры файла: {e.Message}");
-            return null;
+            Console.WriteLine($"Ошибка при вычислении сигнатуры файла: {error.Message}");
+            return string.Empty;
         }
     }
 
@@ -65,12 +67,12 @@ class Program
                     foundFiles.Add(file);
             }
 
-            foreach (string subdirectory in Directory.GetDirectories(directory))
-                foundFiles.AddRange(FindFilesWithSignature(subdirectory, signature));
+            foreach (string dir in Directory.GetDirectories(directory))
+                foundFiles.AddRange(FindFilesWithSignature(dir, signature));
         }
-        catch (Exception e)
+        catch (Exception error)
         {
-            Console.WriteLine($"Ошибка при сканировании каталога {directory}: {e.Message}");
+            Console.WriteLine($"Ошибка при сканировании каталога {directory}: {error.Message}");
         }
         return foundFiles;
     }
